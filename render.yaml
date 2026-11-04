@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: shop-ease-backend
+    runtime: node
+    # dist/ is gitignored, so it must be compiled during the build.
+    # --prod=false keeps devDependencies (typescript, @types/*) even when NODE_ENV=production.
+    buildCommand: pnpm install --frozen-lockfile --prod=false && pnpm run build
+    startCommand: pnpm start
