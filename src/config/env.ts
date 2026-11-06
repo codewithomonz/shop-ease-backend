@@ -24,6 +24,7 @@ export const env = {
   databaseUrl: checkEnvVariable("DATABASE_URL"),
   jwtAccessSecret: checkEnvVariable("JWT_SECRET"),
   jwtAccessExpiresIn: checkEnvVariable("JWT_ACCESS_EXPIRES_IN"),
+  apiDocs: checkEnvVariable("API_DOCS_URL"),
 
   // Security
   corsOrigins: list(process.env.CORS_ORIGINS ?? "http://localhost:5173"),
