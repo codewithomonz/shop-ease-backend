@@ -10,6 +10,7 @@ import { apiLimiter } from "./middlewares/rateLimit.middleware.ts";
 import { sanitizeInput } from "./middlewares/sanitize.middleware.ts";
 import { AppError } from "./errors/AppError.ts";
 import { apiRouter } from "./routes/index.ts";
+import { docsRouter } from "./routes/docs.routes.ts";
 
 export function createApp(): Express {
   const app = express();
@@ -47,6 +48,7 @@ export function createApp(): Express {
 
   app.use(requestLogger);
 
+  app.use("/", docsRouter);
   app.use("/api/v1", apiLimiter, apiRouter);
 
   //error handler
