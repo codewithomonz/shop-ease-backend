@@ -21,8 +21,13 @@ export const env = {
     databaseUrl: checkEnvVariable("DATABASE_URL"),
     jwtAccessSecret: checkEnvVariable("JWT_SECRET"),
     jwtAccessExpiresIn: checkEnvVariable("JWT_ACCESS_EXPIRES_IN"),
+    apiDocs: checkEnvVariable("API_DOCS_URL"),
     // Security
-    corsOrigins: list(process.env.CORS_ORIGINS ?? "http://localhost:5173"),
+    // Comma-separated list; "*" allows any origin. CORS_ORIGIN (singular) is accepted as an alias.
+    corsOrigins: (process.env.CORS_ORIGINS || process.env.CORS_ORIGIN || "")
+        .split(",")
+        .map((o) => o.trim().replace(/\/+$/, "")) // browsers send origins without a trailing slash
+        .filter(Boolean),
     // Number of reverse proxies in front of the app (needed for correct client IPs in rate limiting)
     trustProxy: Number(process.env.TRUST_PROXY ?? 0),
     // Frontend URL, used to build the password reset link

@@ -27,9 +27,10 @@ export const env = {
   apiDocs: checkEnvVariable("API_DOCS_URL"),
 
   // Security
-  corsOrigins: (process.env.CORS_ORIGINS ?? "")
+  // Comma-separated list; "*" allows any origin. CORS_ORIGIN (singular) is accepted as an alias.
+  corsOrigins: (process.env.CORS_ORIGINS || process.env.CORS_ORIGIN || "")
     .split(",")
-    .map((o) => o.trim())
+    .map((o) => o.trim().replace(/\/+$/, "")) // browsers send origins without a trailing slash
     .filter(Boolean),
 
   // Number of reverse proxies in front of the app (needed for correct client IPs in rate limiting)

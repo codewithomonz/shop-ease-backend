@@ -6,6 +6,7 @@ export declare const env: {
     databaseUrl: string;
     jwtAccessSecret: string;
     jwtAccessExpiresIn: string;
+    apiDocs: string;
     corsOrigins: string[];
     trustProxy: number;
     clientUrl: string;
