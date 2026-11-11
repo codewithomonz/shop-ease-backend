@@ -27,7 +27,11 @@ export const env = {
   apiDocs: checkEnvVariable("API_DOCS_URL"),
 
   // Security
-  corsOrigins: list(process.env.CORS_ORIGINS ?? "http://localhost:5173"),
+  corsOrigins: (process.env.CORS_ORIGINS ?? "")
+    .split(",")
+    .map((o) => o.trim())
+    .filter(Boolean),
+
   // Number of reverse proxies in front of the app (needed for correct client IPs in rate limiting)
   trustProxy: Number(process.env.TRUST_PROXY ?? 0),
 
